@@ -98,25 +98,30 @@ function display(index) {
 }
 
 submit.addEventListener("click", (e) => {
-  e.preventDefault(); // stop form submit / page reload
+  e.preventDefault(); 
   clear();
 });
 
 function clear() {
   container.innerHTML = "";
-  const tryagain = document.querySelector("div")
+  const tryagain = document.createElement("div");
   tryagain.classList.add("final-score");
+
   const title = document.createElement("h2");
   title.textContent = "Quiz Challenge"
   tryagain.appendChild(title);
-  const results = document.createElement("h3");
-  results.textContent = ` Your score : ${score}/10`;
-  tryagain.appendChild(results)
-  results.classList.add("results")
+
+  const resultsEl = document.createElement("h3");
+  resultsEl.textContent = ` Your score : ${score}/10`;
+  tryagain.appendChild(resultsEl)
+  resultsEl.classList.add("results")
+
    const restart = document.createElement('button');
    restart.textContent = 'Play again';
    restart.addEventListener('click', () => location.reload());
-   container.appendChild(restart);
-   restart.classList.add("restart")
+   tryagain.appendChild(restart);
+   restart.classList.add("restart");
+
+    container.appendChild(tryagain)
 }
 
