@@ -65,6 +65,8 @@ btns.forEach((button, i) => {
 
  let score = 0;
 
+ const selectedAnswers = Array(user.length).fill(null);
+
 function display(index) {
   resultscheck.innerHTML = "";
   const ques = user[index].question;
@@ -72,30 +74,57 @@ function display(index) {
 
   optionscontainer.innerHTML = "";
   const options = user[index].options;
+
   options.forEach((option) => {
+
     const optionbtn = document.createElement("button");
     optionscontainer.appendChild(optionbtn);
     optionbtn.textContent = option;
     optionbtn.classList.add("option-btn");
-    optionbtn.addEventListener("click", () => {
-      const ans = user[index].answer;
-      if (option === ans) {
+
+
+      if (selectedAnswers[index] !== null) {
+      // disable all options and mark the chosen one
+      optionbtn.disabled = true;
+      if (selectedAnswers[index] === option) {
+        optionbtn.classList.add("selected");
+      }
+       if (resultscheck.innerHTML === "") {
         const para = document.createElement("p");
         para.classList.add("para");
-        resultscheck.innerHTML = "";
-        para.textContent += "Correct";
-        resultscheck.appendChild(para);
-        score++
-      } else {
-        const para = document.createElement("p");
-        para.classList.add("para");
-        resultscheck.innerHTML = "";
-        para.textContent += "Wrong";
+        para.textContent = selectedAnswers[index] === user[index].answer ? "Correct" : "Wrong";
         resultscheck.appendChild(para);
       }
+      return;
+    }
+
+
+    optionbtn.addEventListener("click", () => {
+    optionscontainer.querySelectorAll("button").forEach(b => b.disabled = true);
+
+      const ans = user[index].answer;
+
+       selectedAnswers[index] = option;
+
+
+        const para = document.createElement("p");
+        para.classList.add("para");
+        resultscheck.innerHTML = "";
+
+      if (option === ans) {
+    
+        para.textContent += "Correct";
+        score++
+      } else {
+
+        para.textContent += "Wrong";
+      }
+      resultscheck.appendChild(para);
+      optionbtn.classList.add("selected")
     });
-  });
 }
+)};
+
 
 submit.addEventListener("click", (e) => {
   e.preventDefault(); 
@@ -124,4 +153,3 @@ function clear() {
 
     container.appendChild(tryagain)
 }
-
