@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Aller';
-    src: url('Aller-BoldItalic.woff2') format('woff2'),
-        url('Aller-BoldItalic.woff') format('woff');
+    src: url('fonts/Aller-BoldItalic.woff2') format('woff2'),
+        url('fonts/Aller-BoldItalic.woff') format('woff');
     font-weight: bold;
     font-style: italic;
     font-display: swap;
